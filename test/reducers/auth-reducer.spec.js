@@ -5,13 +5,13 @@ describe('auth reducer', () => {
   const loggedOutState = {
     token: null,
     error: {},
-    failed: false
+    loggedIn: false
   };
 
   const loggedInState = {
     token: 'anAccessToken',
     error: {},
-    failed: false
+    loggedIn: true
   };
 
   it('should handle initial state', () => {

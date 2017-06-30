@@ -7,7 +7,7 @@ Object {
     "error_description": "incorrect code",
     "error_uri": "/error",
   },
-  "failed": true,
+  "loggedIn": false,
   "token": null,
 }
 `;
@@ -15,7 +15,7 @@ Object {
 exports[`auth reducer should handle LOGIN_SUCCESS 1`] = `
 Object {
   "error": Object {},
-  "failed": false,
+  "loggedIn": true,
   "token": "anAccessToken",
 }
 `;
@@ -23,7 +23,7 @@ Object {
 exports[`auth reducer should handle LOGOUT 1`] = `
 Object {
   "error": Object {},
-  "failed": false,
+  "loggedIn": false,
   "token": null,
 }
 `;
@@ -31,7 +31,7 @@ Object {
 exports[`auth reducer should handle initial state 1`] = `
 Object {
   "error": Object {},
-  "failed": false,
+  "loggedIn": false,
   "token": null,
 }
 `;
