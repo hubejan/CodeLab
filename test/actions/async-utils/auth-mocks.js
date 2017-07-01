@@ -39,7 +39,11 @@ export const teacherLoginMock = (authCode: string) => (dispatch: *) => {
 
   return authorizeAppMock(authInfo)
     .then(response =>
-      dispatch({ type: actions.LOGIN_SUCCESS, token: response.access_token })
+      dispatch({
+        type: actions.LOGIN_SUCCESS,
+        token: response.access_token,
+        username: 'Dummy Name'
+      })
     )
     .catch(authError =>
       dispatch({ type: actions.LOGIN_FAILURE, error: authError })

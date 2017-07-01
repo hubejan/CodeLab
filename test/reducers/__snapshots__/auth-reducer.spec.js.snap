@@ -17,6 +17,7 @@ Object {
   "error": Object {},
   "loggedIn": true,
   "token": "anAccessToken",
+  "username": "Test Name",
 }
 `;
 
@@ -25,6 +26,7 @@ Object {
   "error": Object {},
   "loggedIn": false,
   "token": null,
+  "username": null,
 }
 `;
 
@@ -33,5 +35,6 @@ Object {
   "error": Object {},
   "loggedIn": false,
   "token": null,
+  "username": null,
 }
 `;

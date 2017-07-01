@@ -11,7 +11,8 @@ describe('auth reducer', () => {
   const loggedInState = {
     token: 'anAccessToken',
     error: {},
-    loggedIn: true
+    loggedIn: true,
+    username: 'Test Name'
   };
 
   it('should handle initial state', () => {
@@ -19,7 +20,7 @@ describe('auth reducer', () => {
   });
 
   it('should handle LOGIN_SUCCESS', () => {
-    const successAction = { type: LOGIN_SUCCESS, token: 'anAccessToken' };
+    const successAction = { type: LOGIN_SUCCESS, token: 'anAccessToken', username: 'Test Name' };
     expect(authReducer(loggedOutState, successAction)).toMatchSnapshot();
   });
 

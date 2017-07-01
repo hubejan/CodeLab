@@ -25,6 +25,8 @@ export default class LoginComponent extends React.Component {
     authWindow.show();
 
     const handleCallback = (url) => {
+      // this is electron app, so callback url doesn't hit a server route or anything
+      // extract authCode, which github appended to our fake callback url
       const rawCode = /code=([^&]*)/.exec(url) || null;
       const authCode = (rawCode && rawCode.length > 1) ? rawCode[1] : null;
       const error = /\?error=(.+)$/.exec(url);
@@ -70,7 +72,7 @@ export default class LoginComponent extends React.Component {
         <button onClick={this.handleAuth.bind(this)}>
           Log in with Github
         </button>
-        <h5>dev note: If successful, auth token should be on state and in localstorage</h5>
+        <h5>dev note: If successful, Oauth token + username should be on state + localstorage</h5>
       </div>
     );
   }

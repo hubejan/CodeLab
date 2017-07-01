@@ -26,13 +26,17 @@ describe('action creators', () => {
     });
   });
 
-  it('should create an action with a valid token on successful login', () => {
+  it('should create an action with a valid token and username on successful login', () => {
     const dispatcherFunc = mockedTeacherLogin('a valid code');
     const mockDispatch = jest.fn();
 
     return dispatcherFunc(mockDispatch)
     .then(() => {
-      expect(mockDispatch).toBeCalledWith({ type: 'LOGIN_SUCCESS', token: 'a valid access token' });
+      expect(mockDispatch).toBeCalledWith({
+        type: 'LOGIN_SUCCESS',
+        token: 'a valid access token',
+        username: 'Dummy Name'
+      });
       return expect(mockDispatch.mock.calls).toMatchSnapshot();
     });
   });

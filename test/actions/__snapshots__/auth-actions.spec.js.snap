@@ -10,12 +10,13 @@ Array [
 ]
 `;
 
-exports[`action creators should create an action with a valid token on successful login 1`] = `
+exports[`action creators should create an action with a valid token and username on successful login 1`] = `
 Array [
   Array [
     Object {
       "token": "a valid access token",
       "type": "LOGIN_SUCCESS",
+      "username": "Dummy Name",
     },
   ],
 ]

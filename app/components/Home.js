@@ -17,6 +17,7 @@ const btnStyle = {
 
 export default class Home extends Component {
   props: {
+    username: string,
     githubLogout: () => void
   };
 
@@ -25,7 +26,7 @@ export default class Home extends Component {
       <div>
         <button style={btnStyle} onClick={this.props.githubLogout}>Logout</button>
         <div style={tempStyle} data-tid="container" >
-          <h2>Welcome back (github username)</h2>
+          <h2>Welcome back {this.props.username.split(' ')[0]}</h2>
           <Link to="/counter">to Counter</Link>
           <br />
           <Link to="/panelView">test the Question/History panel</Link>
