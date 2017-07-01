@@ -24,6 +24,20 @@ const authorizeApp = (authInfo: authInfoType) => {
   return axios.post(url, authInfo, config);
 };
 
+const getUsername = (token) => {
+  const url = 'https://api.github.com/user';
+  const config = {
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
+      Authorization: `token ${token}`
+    }
+  };
+  return axios.get(url, config)
+    .then(response => response.data.name); // optionally data.login
+};
+
 const revokeAuth = (token: string) => {
   const url = `https://api.github.com/applications/${gitAuth.client_id}/grants/${token}`;
   const config = {
@@ -35,7 +49,12 @@ const revokeAuth = (token: string) => {
   return axios.delete(url, config);
 };
 
-export const storageLogin = (token: string) => ({ type: LOGIN_SUCCESS, token });
+export const storageLogin = (token: string, username: string) => ({
+  type: LOGIN_SUCCESS,
+  token,
+  username
+});
+
 export const teacherLogin = (authCode: string) => (dispatch: *) => {
   const authInfo = {
     client_id: gitAuth.client_id,
@@ -45,16 +64,35 @@ export const teacherLogin = (authCode: string) => (dispatch: *) => {
 
   return authorizeApp(authInfo)
     .then(response => {
-      if (response.data.access_token) {
-        localStorage.setItem('token', response.data.access_token);
-        return dispatch({ type: LOGIN_SUCCESS, token: response.data.access_token });
+      if (!response.data.access_token) {
+        const error = new Error('failed authorization');
+        error.failure = response.data;
+        throw error;
       }
-      return dispatch({ type: LOGIN_FAILURE, error: response.data });
+      return response.data.access_token;
+    })
+    .then(token => Promise.all([token, getUsername(token)]))
+    .then(([token, username]) => {
+      localStorage.setItem('token', token);
+      localStorage.setItem('username', username);
+      return dispatch({ type: LOGIN_SUCCESS, token, username });
     })
     .catch(error => {
       console.error(error);
-      dispatch({ type: LOGIN_FAILURE, error });
+      dispatch({ type: LOGIN_FAILURE, error: error.failure });
     });
+
+    // .then(response => {
+    //   if (response.data.access_token) {
+    //     localStorage.setItem('token', response.data.access_token);
+    //     return dispatch({ type: LOGIN_SUCCESS, token: response.data.access_token });
+    //   }
+    //   return dispatch({ type: LOGIN_FAILURE, error: response.data });
+    // })
+    // .catch(error => {
+    //   console.error(error);
+    //   dispatch({ type: LOGIN_FAILURE, error });
+    // });
 };
 
 // future: come back and learn how to do dispatch/getState flow types

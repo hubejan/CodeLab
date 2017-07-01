@@ -6,7 +6,8 @@ import { teacherLogin, teacherLogout, storageLogin } from '../actions/auth-actio
 
 function mapStateToProps(state) {
   return {
-    loggedIn: state.auth.loggedIn
+    loggedIn: state.auth.loggedIn,
+    username: state.auth.username
   };
 }
 
@@ -15,8 +16,8 @@ function mapDispatchToProps(dispatch) {
     githubLogin(authCode) {
       dispatch(teacherLogin(authCode));
     },
-    alreadyLoggedIn(token) {
-      dispatch(storageLogin(token));
+    alreadyLoggedIn(token, username) {
+      dispatch(storageLogin(token, username));
     },
     githubLogout() {
       dispatch(teacherLogout());
@@ -27,6 +28,7 @@ function mapDispatchToProps(dispatch) {
 class LandingPage extends Component {
   props: {
     loggedIn: boolean,
+    username: ?string,
     alreadyLoggedIn: () => void,
     githubLogin: () => void,
     githubLogout: () => void
@@ -34,13 +36,14 @@ class LandingPage extends Component {
 
   componentWillMount() {
     const token = window.localStorage.getItem('token');
-    if (token) return this.props.alreadyLoggedIn(token);
+    const username = window.localStorage.getItem('username');
+    if (token && username) return this.props.alreadyLoggedIn(token, username);
   }
 
   render() {
-    const { loggedIn, githubLogin, githubLogout } = this.props;
+    const { loggedIn, username, githubLogin, githubLogout } = this.props;
     return loggedIn
-      ? <Home githubLogout={githubLogout} />
+      ? <Home githubLogout={githubLogout} username={username} />
       : <Login githubLogin={githubLogin} />;
   }
 }
