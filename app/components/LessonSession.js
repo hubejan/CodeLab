@@ -7,6 +7,7 @@ import FiletreeContainer from '../containers/FiletreeContainer';
 import GitControlsContainer from '../containers/GitControlsContainer';
 import EditorContainer from '../containers/EditorContainer';
 import UserRepositoriesContainer from '../containers/UserRepositoriesContainer';
+import Flexbox from 'flexbox-react';
 
 import type { lessonSessionStateType, lessonInfoType } from '../reducers/lessonSession-reducer';
 
@@ -24,9 +25,9 @@ class LessonSession extends Component {
     const { userRepositories, selectedRepository, lessonInfo } = this.props;
 
     return (
-      <div>
+      <Flexbox>
         <EditorContainer />
-      </div>
+      </Flexbox>
     );
   }
 }

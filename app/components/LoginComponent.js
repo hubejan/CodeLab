@@ -1,6 +1,11 @@
 import React from 'react';
 import { remote } from 'electron';
 import gitAuth from '../utils/github.settings'; // obj with id, secret, scopes
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
+import AutoComplete from 'material-ui/AutoComplete';
+import TextField from 'material-ui/TextField';
 
 export default class LoginComponent extends React.Component {
   props: {
@@ -67,13 +72,12 @@ export default class LoginComponent extends React.Component {
   // if access has been granted, then revoked by user, this won't work
   render() {
     return (
-      <div>
-        <h2>Welcome to Codelab</h2>
-        <button onClick={this.handleAuth.bind(this)}>
+      <Dialog title="Welcome to Codelab" modal={true} open={true}>
+        <RaisedButton onClick={this.handleAuth.bind(this)} >
           Log in with Github
-        </button>
+        </RaisedButton>
         <h5>dev note: If successful, Oauth token + username should be on state + localstorage</h5>
-      </div>
+      </Dialog>
     );
   }
 }

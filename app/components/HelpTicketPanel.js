@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import HelpTicket from './HelpTicket';
 import type { ticketsStateType } from '../reducers/tickets-reducer';
-
+import Flexbox from 'flexbox-react';
 
 class HelpTicketPanel extends Component {
   props: {
@@ -14,12 +14,12 @@ class HelpTicketPanel extends Component {
   render() {
     const { allTickets } = this.props.ticketsState;
     return (
-      <div>
+      <Flexbox>
         <h4>HelpTicketPanel Component</h4>
         { allTickets.map(ticket =>
           <HelpTicket key={ticket.question} ticket={ticket} />)
         }
-      </div>
+      </Flexbox>
     );
   }
 }

@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import { lessonInfoType } from '../reducers/lessonSession-reducer';
+import RaisedButton from 'material-ui/RaisedButton';
+import AppBar from 'material-ui/AppBar';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import NavigationClose from 'material-ui/svg-icons/av/skip-previous';
+
 
 export default class GitControls extends Component {
 
@@ -17,15 +23,14 @@ export default class GitControls extends Component {
             lessonInfo } = this.props;
 
     return (
-      <div>
-        <button onClick={() => { checkoutPreviousBranch(lessonInfo); }} >
+      <AppBar iconElementLeft={<IconButton><NavigationClose /></IconButton>}>
+        <RaisedButton onClick={() => { checkoutPreviousBranch(lessonInfo); }} >
           Previous branch
-        </button>
-
-        <button onClick={() => { checkoutNextBranch(lessonInfo); }} >
+        </RaisedButton>
+        <RaisedButton onClick={() => { checkoutNextBranch(lessonInfo); }} >
           Next branch
-        </button>
-      </div>
+        </RaisedButton>
+      </AppBar>
     );
   }
 }
